@@ -1,9 +1,16 @@
 # Default ignored files
+**/.gitignore
+**/.dockerignore
+**/.editorconfig
+**/Dockerfile
+**/HELP.md
+**/README.md
 **/.DS_Store
 **/*.iml
 **/reports/
 **/target/
 **/logs/
+**/.git/
 **/.allure/
 **/allure-results/
 **/allure-reports/
