@@ -22,11 +22,15 @@ docker run --rm -it --name dockerfile-example-go-arm64 helloyuanyuan/dockerfile-
 
 ### build local image
 
+~~~bash
 docker buildx build -t helloyuanyuan/dockerfile-example-go:local --platform=linux/arm64 . --load
 docker push helloyuanyuan/dockerfile-example-go:local
 docker run --rm -it --name dockerfile-example-go helloyuanyuan/dockerfile-example-go:local ./dockerfile-example-go
+~~~
 
 ### build and push
 
+~~~bash
 docker buildx build -t helloyuanyuan/dockerfile-example-go:v1 --platform=linux/arm64,linux/amd64 . --push
 docker run --rm -it --name dockerfile-example-go helloyuanyuan/dockerfile-example-go:v1 ./dockerfile-example-go
+~~~
