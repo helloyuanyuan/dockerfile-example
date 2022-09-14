@@ -19,10 +19,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- dependencies version -->
     <junit-jupiter.version>5.9.0</junit-jupiter.version>
-    <junit-platform-suite-engine.version>1.9.0</junit-platform-suite-engine.version>
+    <junit-platform-suite.version>1.9.0</junit-platform-suite.version>
     <allure-junit5.version>2.13.2</allure-junit5.version>
     <!-- plugin version -->
-    <junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
     <allure-maven.version>2.11.2</allure-maven.version>
     <fmt-maven-plugin.version>2.13</fmt-maven-plugin.version>
   </properties>
@@ -44,16 +43,16 @@
     </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-suite-engine</artifactId>
-      <version>${junit-platform-suite-engine.version}</version>
+      <artifactId>junit-platform-suite</artifactId>
+      <version>${junit-platform-suite.version}</version>
       <scope>test</scope>
     </dependency>
-  <dependency>
-    <groupId>io.qameta.allure</groupId>
-    <artifactId>allure-junit5</artifactId>
-    <version>${allure-junit5.version}</version>
-    <scope>test</scope>
-  </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <version>${allure-junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
