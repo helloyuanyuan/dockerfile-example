@@ -4,12 +4,11 @@ ARG RUNTIME_IMAGE=openjdk:11.0.7-jre-slim
 FROM ${BUILD_IMAGE} as builder
 WORKDIR /app
 COPY . .
-RUN ./mvnw -B clean package
+RUN ./mvnw -B clean test-compile test -Dgroups="bvt"
 
 FROM ${RUNTIME_IMAGE}
 WORKDIR /app
 COPY --from=builder /root/.m2 /root/.m2
-COPY --from=builder /app/.mvn ./.mvn
-COPY --from=builder /app/target ./target
-COPY --from=builder /app/mvnw /app/mvnw.cmd /app/pom.xml ./
+COPY --from=builder /app .
+RUN rm -rf ./src
 CMD [ "/bin/bash" ]
