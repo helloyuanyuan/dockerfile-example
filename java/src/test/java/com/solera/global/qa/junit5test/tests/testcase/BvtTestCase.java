@@ -14,27 +14,32 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@DisplayName("junit.test.bvt")
+@Tag("bvt")
 @SpringBootTest
 @LifeCycle
 @Slf4j
-@Tag("bvt")
-@DisplayName("junit.test.bvt")
 class BvtTestCase extends TestBase implements LifeCycleLogger {
 
   @DisplayName("bvtTest")
+  @Tag("bvt1")
   @Test
   void bvtTest() {
     log.info("execute bvtTest");
-    assertThat("hello world").isEqualTo(MSG);
+    log.info(MSG);
+    assertThat("hello world").isSubstringOf(MSG);
   }
 
   @DisplayName("disableTest")
+  @Tag("bvt2")
   @Test
   @Disabled
   void disableTest() {
     log.info("execute disableTest");
   }
 
+  @DisplayName("timeoutTest")
+  @Tag("bvt3")
   @Test
   @Timeout(unit = TimeUnit.MILLISECONDS, value = 2000)
   void timeoutTest() throws InterruptedException {

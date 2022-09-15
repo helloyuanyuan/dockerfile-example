@@ -20,15 +20,15 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@DisplayName("junit.test.regression")
+@Tag("reg")
 @SpringBootTest
 @LifeCycle
 @Slf4j
-@Tag("reg")
-@DisplayName("junit.test.regression")
 class RegTestCase extends TestBase implements LifeCycleLogger {
 
-  @Execution(ExecutionMode.CONCURRENT)
   @DisplayName("ParameterizedTest - ValueSource - Strings")
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @ValueSource(strings = {"a", "b", "c"})
   void valueSourceStringsTest(String value) {
@@ -36,8 +36,8 @@ class RegTestCase extends TestBase implements LifeCycleLogger {
     assertTrue(null != value);
   }
 
-  @Execution(ExecutionMode.CONCURRENT)
   @DisplayName("ParameterizedTest - ValueSource - Ints")
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @ValueSource(ints = {1, 2, 3})
   void valueSourceIntsTest(int value) {
@@ -45,8 +45,8 @@ class RegTestCase extends TestBase implements LifeCycleLogger {
     assertTrue(value <= 3);
   }
 
-  @Execution(ExecutionMode.CONCURRENT)
   @DisplayName("ParameterizedTest - ValueSource - NullAndEmptySource")
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @NullAndEmptySource
   @ValueSource(strings = {"a", "b", "c"})
@@ -54,8 +54,8 @@ class RegTestCase extends TestBase implements LifeCycleLogger {
     log.info("valueSourceNullAndEmptySourceTest [{}]", value);
   }
 
-  @Execution(ExecutionMode.CONCURRENT)
   @DisplayName("ParameterizedTest - ArgumentsSource")
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @ArgumentsSource(Languages.class)
   void argumentsSourceTest(String value) {
@@ -67,16 +67,16 @@ class RegTestCase extends TestBase implements LifeCycleLogger {
     return Stream.of("java", "go");
   }
 
-  @Execution(ExecutionMode.CONCURRENT)
   @DisplayName("ParameterizedTest - MethodSource")
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @MethodSource("stringProvider")
   void methodSourceTest(String value) {
     log.info("methodSourceTest [{}]", value);
   }
 
-  @Execution(ExecutionMode.CONCURRENT)
   @DisplayName("ParameterizedTest - CsvSource")
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @CsvSource(
       value = {"java, 100", "go, 100", "null, 50"},
