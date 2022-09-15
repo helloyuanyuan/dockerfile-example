@@ -21,39 +21,53 @@ Run test and generates test report:
   ./mvnw clean compile test -Dgroups="bvt, reg" allure:serve
   ~~~
 
-## Build & Push & Run
+  or
 
-### Docker Build Command
+  ~~~bash
+  ./buildtest.sh ${env} ${tags}
 
-#### linux/amd64
+  Example:
+
+  ./buildtest.sh local bvt1,bvt2,bvt3
+  ~~~
+
+## Lifecycle
+
+### Docker build - linux/amd64 - Build & Push & Run
 
 ~~~bash
 docker build -t helloyuanyuan/dockerfile-example-java:amd64 --platform linux/amd64 .
 docker push helloyuanyuan/dockerfile-example-java:amd64
-docker run --rm -it --name dockerfile-example-java-amd64 helloyuanyuan/dockerfile-example-java:amd64 ./mvnw test -Dgroups="bvt, reg"
+docker run --rm -it --name dockerfile-example-java-amd64 helloyuanyuan/dockerfile-example-java:amd64 ./buildtest.sh qa bvt,reg
 ~~~
 
-#### linux/arm64
+### Docker build - linux/arm64 - Build & Push & Run
 
 ~~~bash
 docker build -t helloyuanyuan/dockerfile-example-java:arm64 --platform linux/arm64 .
 docker push helloyuanyuan/dockerfile-example-java:arm64
-docker run --rm -it --name dockerfile-example-java-arm64 helloyuanyuan/dockerfile-example-java:arm64 ./mvnw test -Dgroups="bvt, reg"
+docker run --rm -it --name dockerfile-example-java-arm64 helloyuanyuan/dockerfile-example-java:arm64 ./buildtest.sh qa bvt,reg
 ~~~
 
-### Docker Buildx Command
-
-#### build local image
+### Docker buildx - linux/amd64 - Build & Push & Run
 
 ~~~bash
-docker buildx build -t helloyuanyuan/dockerfile-example-java:local --platform=linux/arm64 . --load
-docker push helloyuanyuan/dockerfile-example-java:local
-docker run --rm -it --name dockerfile-example-java helloyuanyuan/dockerfile-example-java:local ./mvnw test -Dgroups="bvt, reg"
+docker buildx build -t helloyuanyuan/dockerfile-example-java:amd64 --platform=linux/amd64 . --load
+docker push helloyuanyuan/dockerfile-example-java:amd64
+docker run --rm -it --name dockerfile-example-java helloyuanyuan/dockerfile-example-java:amd64 ./buildtest.sh qa bvt,reg
 ~~~
 
-#### build and push
+### Docker buildx - linux/arm64 - Build & Push & Run
 
 ~~~bash
-docker buildx build -t helloyuanyuan/dockerfile-example-java:v1 --platform=linux/arm64,linux/amd64 . --push
-docker run --rm -it --name dockerfile-example-java helloyuanyuan/dockerfile-example-java:v1 ./mvnw test -Dgroups="bvt, reg"
+docker buildx build -t helloyuanyuan/dockerfile-example-java:arm64 --platform=linux/arm64 . --load
+docker push helloyuanyuan/dockerfile-example-java:arm64
+docker run --rm -it --name dockerfile-example-java helloyuanyuan/dockerfile-example-java:arm64 ./buildtest.sh qa bvt,reg
+~~~
+
+### Docker buildx - linux/amd64,linux/arm64 - Push & Run
+
+~~~bash
+docker buildx build -t helloyuanyuan/dockerfile-example-java:v1 --platform=linux/amd64,linux/arm64 . --push
+docker run --rm -it --name dockerfile-example-java helloyuanyuan/dockerfile-example-java:v1 ./buildtest.sh qa bvt,reg
 ~~~
